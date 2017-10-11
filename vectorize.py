@@ -32,16 +32,17 @@ def get_vectorizer_model():
 
 
 
+# Testing code
 
-csv_input = "/home/sree/code/ares/data/op_trial1.csv"
-data = pd.read_csv(csv_input, sep="\t")
+# csv_input = "/home/sree/code/ares/data/op_trial1.csv"
+# data = pd.read_csv(csv_input, sep="\t")
 
-#test on a sample
-test_string = data['cleaned_html'][0]
-vector = toVector(test_string)
+# #test on a sample
+# test_string = data['cleaned_html'][0]
+# vector = tovector(test_string)
 
-data["vector"] = data['cleaned_html'].apply(lambda x: tovector(str(x).split(" ")))
-data.to_csv("/home/sree/op_vectorized.csv", sep="\t")
+# data["vector"] = data['cleaned_html'].apply(lambda x: tovector(str(x).split(" ")))
+# data.to_csv("/home/sree/op_vectorized.csv", sep="\t")
 
 
 

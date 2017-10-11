@@ -1,7 +1,14 @@
-
 import numpy as np
 import pandas as pd
+from gensim.models.keyedvectors import KeyedVectors
+import vectorize
 
+
+## https://stackoverflow.com/questions/22129943/how-to-calculate-the-sentence-similarity-using-word2vec-model-of-gensim-with-pyt
+
+
+
+## Cosine similarity for vector space models - 
 
 __author__ = "Sreejith Sreekumar"
 __email__ = "sreekumar.s@husky.neu.edu"
@@ -23,4 +30,21 @@ for k, v in similarity_dictionary.items():
     
 
 
+data["vector"] = data['cleaned_html'].apply(lambda x: vectorize.tovector(str(x).split(" ")))
 
+s1 = data['vector'][0]
+s2 = data['vector'][1]
+
+distance = model.wmdistance(s1, s2)
+
+
+## example distance calculation - Word mover's distance 
+s1 = data['cleaned_html'][0]
+s2 = data['cleaned_html'][1]
+
+
+
+# #cosine distance 
+# vectorize.model.similarity(s1,s2)
+
+# distance = vectorize.model.wmdistance(s1, s2)
