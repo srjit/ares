@@ -6,6 +6,7 @@ import scipy.spatial.distance
 
 import operator
 import gc
+import json
 
 ## https://stackoverflow.com/questions/22129943/how-to-calculate-the-sentence-similarity-using-word2vec-model-of-gensim-with-pyt
 
@@ -44,11 +45,11 @@ output_folder = "/home/sree/code/ares/similarity_results_word2vec"
 
 for i, root_vector in enumerate(sentence_vectors):
 
-    output_file = output_folder + "/" + i + ".txt"
+    filename = output_folder + "/" + str(i) + ".txt"
     tmp = {}
 
     print("Calculating similarity of vector" , i)
-    similarity_dictionary[i] = {}
+    similarity_dictionary = {}
     for j, tmp in enumerate(sentence_vectors):
 #        print(vectorize.model.wmdistance(root_vector,tmp))
         try:
@@ -57,21 +58,25 @@ for i, root_vector in enumerate(sentence_vectors):
         except:
 #            similarity_dictionary[i][j] = 0.0
             tmp = 0.0
+        
+        similarity_dictionary[j] = tmp
 
-        _tmp = dict(sorted(_tmp.items(), key=operator.itemgetter(1), reverse=True))
-        _tmp = {k:v for k,v in _tmp.items() if v != 0.0}
+    # import ipdb
+    # ipdb.set_trace()
 
-        if len(_tmp) > 0:
-            with open(filename, "w") as f:
-                f.write(json.dumps(_tmp, indent=4))
+    _tmp = dict(sorted(similarity_dictionary.items(), key=operator.itemgetter(1), reverse=True))
+    _tmp = {k:v for k,v in _tmp.items() if v != 0.0}
 
-         del _tmp
-         gc.collect()
+    if len(_tmp) > 0:
+        with open(filename, "w") as f:
+            f.write(json.dumps(_tmp, indent=4))
+
+    del _tmp
+    gc.collect()
 
 
 
 
-for i 
 
 
 # s1 = data['vector'][0]
@@ -81,8 +86,8 @@ for i
 
 
 ## example distance calculation - Word mover's distance 
-s1 = data['cleaned_html'][0]
-s2 = data['cleaned_html'][1]
+# s1 = data['cleaned_html'][0]
+# s2 = data['cleaned_html'][1]
 
 
 
