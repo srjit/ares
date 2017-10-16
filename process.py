@@ -1,4 +1,4 @@
-import data_reader
+import connector
 import cleaner
 import utils
 import config
@@ -14,7 +14,7 @@ __version__ = "0.0.1"
 
 cfg = config.read()
 
-data = data_reader.postgres_to_dataframe()
+data = connector.postgres_to_dataframe()
 
 ## Preprocessing Steps
 data['value'] = data['value'].apply(lambda x: cleaner.replace_null_with_empty_string(x))
@@ -51,7 +51,8 @@ matrix = similarity.pairwise_similarity(documents_list)
 pairwise_similarities = utils.matrix_to_pairwise_csv(matrix, checkpoint2_name)
 
 
-
+## writeback to postgres
+#connector.csv_to_postgres(checkpoint2_name)
 
 
 
