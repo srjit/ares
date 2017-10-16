@@ -48,7 +48,7 @@ data.to_csv(checkpoint1_name, sep="\t")
 checkpoint2_name = cfg.get('checkpoint','ch2')
 documents_list = data.processed_value.tolist()
 matrix = similarity.pairwise_similarity(documents_list)
-pairwise_similarities = utils.matrix_to_rows(matrix, checkpoint2_name)
+pairwise_similarities = utils.matrix_to_pairwise_csv(matrix, checkpoint2_name)
 
 
 
