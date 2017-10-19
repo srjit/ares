@@ -52,7 +52,7 @@ pairwise_similarities = utils.matrix_to_pairwise_csv(matrix, checkpoint2_name)
 
 
 ## writeback to postgres
-#connector.csv_to_postgres(checkpoint2_name)
+connector.csv_to_postgres(checkpoint2_name)
 
 
 
