@@ -28,7 +28,7 @@ def matrix_to_pairwise_csv(matrix, output_file):
     with open(output_file, "a+") as sim_pair_file:
 
         writer = csv.writer(sim_pair_file)
-        writer.writerows(headers)        
+#        writer.writerows(headers)        
 
         for slider_index in range(0, len(matrix), batchsize):
             begin_index = slider_index
