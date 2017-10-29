@@ -10,7 +10,8 @@ install_requires = [
     'textstat',
     'configparser',
     'psycopg2',
-    'beautifulsoup4'
+    'beautifulsoup4',
+    'sqlalchemy'
 ]
 
 setup(
