@@ -1,5 +1,4 @@
-# ares
-
+# Ares
      Ares computes similarity between a given list of documents
 
 * Setting up the program
