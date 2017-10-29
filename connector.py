@@ -3,7 +3,7 @@ import config
 import pandas as pd
 import csv
 from itertools import islice
-
+from sqlalchemy import create_engine
 import os
 
 __author__ = "Sreejith Sreekumar"
@@ -17,6 +17,7 @@ database = cfg.get("postgres","database")
 user = cfg.get("postgres","user")
 password = cfg.get("postgres","password")
 table = cfg.get("postgres","table")
+port = 5432
 
 
 def _getpostgres_connection():
@@ -36,6 +37,31 @@ def postgres_to_dataframe():
     return pd.read_sql('select * from ' + table, con=conn)
 
 
+
+def updated_input_dataframe_to_postgres(df):
+    """
+    
+    Arguments:
+    - `filename`:
+    """
+    tablename = 'documents'
+
+    conn = _getpostgres_connection()    
+    cur = conn.cursor()
+
+    delete = """Drop table if exists """ + tablename
+    cur.execute(delete)
+    conn.commit()
+
+    connection_string = "postgresql+psycopg2://" + user + ":" + password + "@" + \
+                         host + ":" + str(port) + "/" + database
+
+
+    engine = create_engine(connection_string)
+    df.to_sql(tablename, con=engine)
+                     
+
+    
 
 # create table in postgres
 # 'CREATE TABLE "similarity"(index1 varchar(20) 

@@ -15,6 +15,8 @@ __version__ = "0.0.1"
 cfg = config.read()
 
 data = connector.postgres_to_dataframe()
+data['index'] = data.index
+
 
 ## Preprocessing Steps
 data['value'] = data['value'].apply(lambda x: cleaner.replace_null_with_empty_string(x))
@@ -25,19 +27,23 @@ data['word_count'] = data['processed_value'].apply(lambda x: utils.count_words(x
 
 
 ## Text statistics from textstat
-# data['reading_ease'] = data['processed_value'].apply(lambda x: 
-#                               textstat.textstat.flesch_reading_ease(str(x)) if x is not '' else 0.0)
-# data['smog_index'] = data['processed_value'].apply(lambda x: 
-#                               textstat.textstat.smog_index(str(x)) if x is not '' else 0.0)
-# data['automated_readability_index'] = data['processed_value'].apply(lambda x: 
-#                               textstat.textstat.automated_readability_index(str(x)) if x is not '' else 0.0)
-# data['coleman_liau_index'] = data['processed_value'].apply(lambda x: 
-#                               textstat.textstat.coleman_liau_index(str(x)) if x is not '' else 0.0)
-# data['linsear_write_formula'] = data['processed_value'].apply(lambda x: 
-#                               textstat.textstat.linsear_write_formula(str(x)) if x is not '' else 0.0)
-# data['dale_chall_readability_score'] = data['processed_value'].apply(lambda x: 
-#                              textstat.textstat.dale_chall_readability_score(str(x)) if x is not '' else 0.0)
+data['gunning_fog'] = data['processed_value'].apply(lambda x: 
+                              textstat.textstat.gunning_fog(str(x)) if x is not '' else 0.0)
+data['reading_ease'] = data['processed_value'].apply(lambda x: 
+                              textstat.textstat.flesch_reading_ease(str(x)) if x is not '' else 0.0)
+data['smog_index'] = data['processed_value'].apply(lambda x: 
+                              textstat.textstat.smog_index(str(x)) if x is not '' else 0.0)
+data['automated_readability_index'] = data['processed_value'].apply(lambda x: 
+                              textstat.textstat.automated_readability_index(str(x)) if x is not '' else 0.0)
+data['coleman_liau_index'] = data['processed_value'].apply(lambda x: 
+                              textstat.textstat.coleman_liau_index(str(x)) if x is not '' else 0.0)
+data['linsear_write_formula'] = data['processed_value'].apply(lambda x: 
+                              textstat.textstat.linsear_write_formula(str(x)) if x is not '' else 0.0)
+data['dale_chall_readability_score'] = data['processed_value'].apply(lambda x: 
+                             textstat.textstat.dale_chall_readability_score(str(x)) if x is not '' else 0.0)
 
+
+connector.updated_input_dataframe_to_postgres(data)
 
 ## Quality check - writing to csv
 checkpoint1_name = cfg.get('checkpoint','ch1')
