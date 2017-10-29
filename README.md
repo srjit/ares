@@ -3,6 +3,7 @@
      Ares computes similarity between a given list of documents
 
 * Setting up the program
+  	  
    	   1. Browse to the directory of the downloaded code.
 	   2. Run: sudo python3 setup.py install (this install the dependencies of the program)
 	   3. Setting up the configuration
@@ -10,6 +11,7 @@
 	      b) Under postgres tab, add the connection details to the postgres database where
 	      	 the program should connect to.
 * Running the program
+  	  
 	      The main file of the code is 'process.py'. Browse to the code directory and execute
 	      this file by: *python process.py*
 * Outputs	      	   
