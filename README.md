@@ -1,5 +1,6 @@
 # Ares
-     Ares computes similarity between a given list of documents
+
+*  Ares computes the pairwise similarity between a given list of documents stored in postgres.
 
 * Setting up the program
   	  
