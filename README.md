@@ -14,9 +14,11 @@
   	  
 	      The main file of the code is 'process.py'. Browse to the code directory and execute
 	      this file by: *python process.py*
-* Outputs	      	   
-	   5. Upon successful run of the program the following tables will be created in the configured
+* Outputs
+
+	** Upon successful run of the program the following tables will be created in the configured
 	      database:
+		
 		a) documents - cleaned documents and their text statistics with an index
 		   	 Columns:
 				* index
