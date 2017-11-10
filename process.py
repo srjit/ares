@@ -27,21 +27,23 @@ data['word_count'] = data['processed_value'].apply(lambda x: utils.count_words(x
 
 
 ## Text statistics from textstat
-data['gunning_fog'] = data['processed_value'].apply(lambda x: 
-                              textstat.textstat.gunning_fog(str(x)) if x is not '' else 0.0)
-data['reading_ease'] = data['processed_value'].apply(lambda x: 
-                              textstat.textstat.flesch_reading_ease(str(x)) if x is not '' else 0.0)
-data['smog_index'] = data['processed_value'].apply(lambda x: 
-                              textstat.textstat.smog_index(str(x)) if x is not '' else 0.0)
-data['automated_readability_index'] = data['processed_value'].apply(lambda x: 
-                              textstat.textstat.automated_readability_index(str(x)) if x is not '' else 0.0)
-data['coleman_liau_index'] = data['processed_value'].apply(lambda x: 
-                              textstat.textstat.coleman_liau_index(str(x)) if x is not '' else 0.0)
-data['linsear_write_formula'] = data['processed_value'].apply(lambda x: 
-                              textstat.textstat.linsear_write_formula(str(x)) if x is not '' else 0.0)
-data['dale_chall_readability_score'] = data['processed_value'].apply(lambda x: 
-                             textstat.textstat.dale_chall_readability_score(str(x)) if x is not '' else 0.0)
+print("Collecting text statistics...")
+# data['gunning_fog'] = data['processed_value'].apply(lambda x: 
+#                               textstat.textstat.gunning_fog(str(x)) if x is not '' else 0.0)
+# data['reading_ease'] = data['processed_value'].apply(lambda x: 
+#                               textstat.textstat.flesch_reading_ease(str(x)) if x is not '' else 0.0)
+# data['smog_index'] = data['processed_value'].apply(lambda x: 
+#                               textstat.textstat.smog_index(str(x)) if x is not '' else 0.0)
+# data['automated_readability_index'] = data['processed_value'].apply(lambda x: 
+#                               textstat.textstat.automated_readability_index(str(x)) if x is not '' else 0.0)
+# data['coleman_liau_index'] = data['processed_value'].apply(lambda x: 
+#                               textstat.textstat.coleman_liau_index(str(x)) if x is not '' else 0.0)
+# data['linsear_write_formula'] = data['processed_value'].apply(lambda x: 
+#                               textstat.textstat.linsear_write_formula(str(x)) if x is not '' else 0.0)
+# data['dale_chall_readability_score'] = data['processed_value'].apply(lambda x: 
+#                              textstat.textstat.dale_chall_readability_score(str(x)) if x is not '' else 0.0)
 
+print("Beginning to write data to postgres")
 
 connector.updated_input_dataframe_to_postgres(data)
 
@@ -53,8 +55,12 @@ data.to_csv(checkpoint1_name, sep="\t")
 ## calculate similarity with
 checkpoint2_name = cfg.get('checkpoint','ch2')
 documents_list = data.processed_value.tolist()
-matrix = similarity.pairwise_similarity(documents_list)
-pairwise_similarities = utils.matrix_to_pairwise_csv(matrix, checkpoint2_name)
+
+vector_type = cfg.get('vector','type')
+output = similarity.get_similarity(vector_type, documents_list)
+
+#write output to csv file
+utils.output_to_csv(vector_type, output, checkpoint2_name)
 
 
 ## writeback to postgres

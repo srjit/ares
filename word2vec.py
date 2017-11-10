@@ -1,5 +1,5 @@
 from gensim.models.keyedvectors import KeyedVectors
-
+import config
 import numpy as np
 import pandas as pd
 
@@ -8,9 +8,10 @@ __email__ = "sreekumar.s@husky.neu.edu"
 __version__ = "0.0.1"
 
 
+cfg = config.read()
+word2vec_model_loc = cfg.get("vector","word2vec_model_loc")
 
-model = KeyedVectors.load_word2vec_format('/media/sree/venus/pre-trained-models/GoogleNews-vectors-negative300.bin', binary=True)
-
+model = KeyedVectors.load_word2vec_format(word2vec_model_loc, binary=True)
 
 def tovector(words):
     vector_array = []
@@ -29,22 +30,3 @@ def get_vectorizer_model():
     """
     """
     return model
-
-
-
-# Testing code
-
-# csv_input = "/home/sree/code/ares/data/op_trial1.csv"
-# data = pd.read_csv(csv_input, sep="\t")
-
-# #test on a sample
-# test_string = data['cleaned_html'][0]
-# vector = tovector(test_string)
-
-# data["vector"] = data['cleaned_html'].apply(lambda x: tovector(str(x).split(" ")))
-# data.to_csv("/home/sree/op_vectorized.csv", sep="\t")
-
-
-
-
-
