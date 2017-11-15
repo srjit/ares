@@ -1,6 +1,9 @@
 import re
 import string
 from bs4 import BeautifulSoup
+import subprocess
+import threading
+import os
 
 __author__ = "Sreejith Sreekumar"
 __email__ = "sreekumar.s@husky.neu.edu"
@@ -35,6 +38,27 @@ def replace_null_with_empty_string(html):
         return ""
     return html
 
+
+def kill_lynx(pid):
+    os.kill(pid, signal.SIGKILL)
+    os.waitpid(-1, os.WNOHANG)
+    print("lynx killed")
+
+
+def get_text_from_html(x):
+    """
+
+    """
+    output = ''
+    try:
+        ps = subprocess.Popen(('echo', x), stdout=subprocess.PIPE)
+        output = subprocess.check_output(('lynx', '--dump', '--stdin'), stdin=ps.stdout)
+        ps.wait()
+    except:
+        import ipdb
+        ipdb.set_trace()
+
+    return output
 
 
 def clean_html_and_extract_text(raw_html):
