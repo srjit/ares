@@ -10,10 +10,23 @@
 	      a) Open config.cfg in the code folder
 	      b) Under postgres tab, add the connection details to the postgres database where
 	      	 the program should connect to.
+
+* Setting the vectorizer
+  	  One of the two vectorizers have to be configured, before the program starts. This can be set
+	  by the "type" keyword. The value of this keyword has to one of the following options :
+	     a) scikit
+	     b) word2vec
+          For using the google word2vec model, the key "word2vec_model_loc" in the config file has to be set.
+	  This has to point to the filesystem location of the word2vec binary model.
+	       
+	  N.B: The model is available for download at the following drive location:
+	       	  https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit
+		     
 * Running the program
   	  
 	      The main file of the code is 'process.py'. Browse to the code directory and execute
 	      this file by: *python process.py*
+
 * Outputs
 
 	** Upon successful run of the program the following tables will be created in the configured
