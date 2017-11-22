@@ -14,8 +14,10 @@
 * Setting the vectorizer
   	  One of the two vectorizers have to be configured, before the program starts. This can be set
 	  by the "type" keyword. The value of this keyword has to one of the following options :
+	     
 	     a) scikit
 	     b) word2vec
+	     	
           For using the google word2vec model, the key "word2vec_model_loc" in the config file has to be set.
 	  This has to point to the filesystem location of the word2vec binary model.
 	       
