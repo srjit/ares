@@ -23,6 +23,12 @@
 	       
 	  N.B: The model is available for download at the following drive location:
 	       	  https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit
+
+* Other dependencies:
+	Readcalc package for python used in the program requires boilerpipe as a dependency
+
+		 a) Install https://github.com/misja/python-boilerpipe
+		 
 		     
 * Running the program
   	  

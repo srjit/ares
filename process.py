@@ -5,6 +5,8 @@ import config
 
 import gc
 from textstat import textstat
+from readcalc import readcalc
+
 
 import similarity
 
@@ -15,15 +17,29 @@ __version__ = "0.0.1"
 cfg = config.read()
 
 data = connector.postgres_to_dataframe()
+
 data['index'] = data.index
 
 
 ## Preprocessing Steps
 data['value'] = data['value'].apply(lambda x: cleaner.replace_null_with_empty_string(x))
+data['readable_text'] = data['value'].apply(lambda x: cleaner.get_readable_text(x))
 data['processed_value'] = data['value'].apply(lambda x: cleaner.clean_html_and_extract_text(x))
+
+
 
 ## Adding a column to count the number of words
 data['word_count'] = data['processed_value'].apply(lambda x: utils.count_words(x))
+
+
+## Collect text stats from Readcalc https://pypi.python.org/pypi/ReadabilityCalculator
+
+data["gunning_fog"] = data['readable_text'].apply(lambda x: 
+                                                      readcalc.ReadCalc(x).get_gunning_fog_index())
+
+import ipdb
+ipdb.set_trace()
+
 
 ## Text statistics from textstat
 print("Collecting text statistics...")

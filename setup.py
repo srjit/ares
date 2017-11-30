@@ -11,7 +11,8 @@ install_requires = [
     'configparser',
     'psycopg2',
     'beautifulsoup4',
-    'sqlalchemy'
+    'sqlalchemy',
+    'ReadabilityCalculator'
 ]
 
 setup(

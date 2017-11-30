@@ -5,10 +5,14 @@ import subprocess
 import threading
 import os
 
+from readcalc import readcalc
+from textstat import textstat
+from readability import Readability
+
 __author__ = "Sreejith Sreekumar"
 __email__ = "sreekumar.s@husky.neu.edu"
 __version__ = "0.0.1"
-
+n
 
 null = 0
 empty = 0
@@ -55,10 +59,30 @@ def get_text_from_html(x):
         output = subprocess.check_output(('lynx', '--dump', '--stdin'), stdin=ps.stdout)
         ps.wait()
     except:
-        import ipdb
-        ipdb.set_trace()
+        pass
+
+    import ipdb
+    ipdb.set_trace()
 
     return output
+
+
+
+def get_readable_text(raw_html):
+    """
+    
+    Arguments:
+    - `x`:
+    """
+    raw_html = bytes(raw_html, 'utf-16').decode("utf-16", 'ignore')
+    cleantext = BeautifulSoup(raw_html).text
+    cleantext = " ".join(cleantext.split())
+    cleantext = ''.join(x for x in cleantext if x in string.printable)
+
+    return cleantext
+    
+    
+
 
 
 def clean_html_and_extract_text(raw_html):
@@ -66,7 +90,7 @@ def clean_html_and_extract_text(raw_html):
     '''
        Clean an html string that comes from "cleaned_value"  column
     '''
-    global foo
+#    global foo
     
     ## use regular expressions to remove roman numberals inside brackets
     ## eg. (iv), (ix) etc.
@@ -79,8 +103,12 @@ def clean_html_and_extract_text(raw_html):
     raw_html = bytes(raw_html, 'utf-16').decode("utf-16", 'ignore')
     cleantext = BeautifulSoup(raw_html).text
     cleantext = " ".join(cleantext.split())
+    cleantext = ''.join(x for x in cleantext if x in string.printable)
 
-    foo.append(cleantext)
+    # foo.append(cleantext)
+
+    # for checking on various libraries
+    # extract_fog_score(cleantext)
 
 
     ## clear off punctuations in the text
@@ -111,4 +139,21 @@ def clean_html_and_extract_text(raw_html):
     cleantext = " ".join(cleantext)
     
     return cleantext.strip()
+
+
+
+def extract_fog_score(cleantext):
+
+    calc = readcalc.ReadCalc(cleantext)
+    fog_index = calc.get_gunning_fog_index()
+
+    # fog_index2 = textstat.textstat.gunning_fog(cleantext)
+
+    # https://github.com/mmautner/readability
+    # readability = Readability(cleantext)
+    # fog_index3 = Readability.GunningFogIndex()
+
+    # import ipdb
+    # ipdb.set_trace()
+    return fog_index
 

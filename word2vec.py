@@ -11,7 +11,7 @@ __version__ = "0.0.1"
 cfg = config.read()
 word2vec_model_loc = cfg.get("vector","word2vec_model_loc")
 
-model = KeyedVectors.load_word2vec_format(word2vec_model_loc, binary=True)
+#model = KeyedVectors.load_word2vec_format(word2vec_model_loc, binary=True)
 
 def tovector(words):
     vector_array = []
