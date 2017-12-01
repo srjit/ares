@@ -11,7 +11,7 @@ def count_words(text):
     return len(text.split())
 
 
-def list_to_csv(lists, output_file):
+def list_to_csv(lists, document_ids, output_file):
 
     batchsize = 10
     headers = [["index1","index2","similarity"]]
@@ -34,13 +34,13 @@ def list_to_csv(lists, output_file):
         
     
 
-def matrix_to_pairwise_csv(matrix, output_file):
+def matrix_to_pairwise_csv(matrix, document_ids, output_file):
     """
     
     Arguments:
     - `matrix`:
     """
-    
+
     batchsize = 10
     headers = [["index1","index2","similarity"]]
     
@@ -56,17 +56,18 @@ def matrix_to_pairwise_csv(matrix, output_file):
             begin_index = slider_index
             end_index = slider_index + batchsize
             
-            similarities_for_range = [[i, j, matrix[i,j]] 
+            similarities_for_range = [[document_ids[i], document_ids[j], matrix[i,j]] 
                                          for i in range(begin_index, end_index) 
                                          for j in range(len(matrix))]
+
             writer.writerows(similarities_for_range)
 
 
 
 
-def output_to_csv(_type, output, output_file):
+def output_to_csv(_type, output, document_ids, output_file):
     if _type == "scikit":
-        return matrix_to_pairwise_csv(output, output_file)
+        return matrix_to_pairwise_csv(output, document_ids, output_file)
     elif _type == "word2vec":
-        return list_to_csv(output, output_file)
+        return list_to_csv(output, document_ids, output_file)
     

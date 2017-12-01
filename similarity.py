@@ -13,7 +13,7 @@ __version__ = "0.0.1"
 
     
 
-def word2vec_similarity(documents):
+def word2vec_similarity(documents, document_ids):
     sentence_vectors = list(map(word2vec.tovector, documents))
 
     output_list = []
@@ -26,7 +26,7 @@ def word2vec_similarity(documents):
                     similarity = 1 - scipy.spatial.distance.cosine(root_vector, tmp_vector)
                 except:
                     similarity = 0.0
-                output_list.append([idx_root, idx_tmp, similarity])
+                output_list.append([document_ids[idx_root], document_ids[idx_tmp], similarity])
             
     return output_list
 
@@ -55,8 +55,8 @@ def word2vec_cosine_similarity(documents):
 
 
 
-def get_similarity(type, documents):
+def get_similarity(type, documents, document_ids):
     if type == "scikit":
         return pairwise_similarity(documents)
     elif type == "word2vec":
-        return word2vec_similarity(documents)
+        return word2vec_similarity(documents, document_ids)
