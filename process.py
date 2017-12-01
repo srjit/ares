@@ -40,8 +40,6 @@ text_simplicity.get_readability_scores_from_readcalc(data)
 ## Text statistics from textstat
 #text_simplicity.get_readability_scores_from_textstat(data)
 
-
-
 print("Beginning to write data to postgres")
 connector.updated_input_dataframe_to_postgres(data)
 
