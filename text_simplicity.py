@@ -1,5 +1,5 @@
 from textstat import textstat
-from readcalc import readcalc
+#from readcalc import readcalc
 
 __author__ = "Sreejith Sreekumar"
 __email__ = "sreekumar.s@husky.neu.edu"
@@ -50,3 +50,15 @@ def get_readability_scores_from_textstat(data, field="readable_text"):
 
 
 
+
+def get_readability_scores(data, type):
+    """
+    
+    Arguments:
+    - `data`:
+    - `type`:
+    """
+    if type == "textstat":
+        get_readability_scores_from_textstat(data)
+    elif type == "readcalc":
+        get_readability_scores_from_readcalc(data)

@@ -53,12 +53,22 @@ def matrix_to_pairwise_csv(matrix, document_ids, output_file):
 #        writer.writerows(headers)        
 
         for slider_index in range(0, len(matrix), batchsize):
+
+
             begin_index = slider_index
-            end_index = slider_index + batchsize
-            
-            similarities_for_range = [[document_ids[begin_index + i], document_ids[j], matrix[i,j]] 
-                                         for i in range(begin_index, end_index) 
-                                         for j in range(len(matrix))]
+
+            if begin_index + batchsize > len(document_ids):
+                batchsize = len(document_ids) - begin_index
+
+            similarities_for_range = []
+
+            for i in range(batchsize):
+                for j in range(len(matrix)):
+                    first_document_index = document_ids[begin_index + i]
+                    second_document_index = document_ids[j]
+                    similarity = matrix[begin_index + i, j]
+
+                    similarities_for_range.append([first_document_index, second_document_index, similarity])
 
             writer.writerows(similarities_for_range)
 

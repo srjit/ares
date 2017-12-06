@@ -3,10 +3,6 @@ import cleaner
 import utils
 import config
 
-import gc
-from textstat import textstat
-from readcalc import readcalc
-
 import text_simplicity
 
 
@@ -35,10 +31,8 @@ data['word_count'] = data['processed_value'].apply(lambda x: utils.count_words(x
 print("Collecting text statistics...")
 
 ## Collect text stats from Readcalc https://pypi.python.org/pypi/ReadabilityCalculator
-text_simplicity.get_readability_scores_from_readcalc(data)
-
-## Text statistics from textstat
-#text_simplicity.get_readability_scores_from_textstat(data)
+readability_calc_type = cfg.get('scores','type')
+text_simplicity.get_readability_scores(data, readability_calc_type)
 
 print("Beginning to write data to postgres")
 connector.updated_input_dataframe_to_postgres(data)

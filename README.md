@@ -28,7 +28,9 @@
 	Readcalc package for python used in the program requires boilerpipe as a dependency
 
 		 a) Install https://github.com/misja/python-boilerpipe
-		 
+	Either of the following two options has to be set in the config under scores type if readabiity scores have to be calculated.
+	         a) textstat
+		 b) readcalc
 		     
 * Running the program
   	  
