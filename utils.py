@@ -1,5 +1,6 @@
 import os
 import csv
+import shutil
 
 
 __author__ = "Sreejith Sreekumar"
@@ -30,6 +31,17 @@ def list_to_csv(lists, document_ids, output_file):
             
             writer.writerows(similarities_for_range)
                
+
+
+def create_date_folder(foldername):
+    """
+    """
+    if(os.path.exists(foldername)):
+        shutil.rmtree(foldername)
+    os.makedirs(foldername)
+    
+    print("New directories created")
+    
         
         
     
@@ -49,7 +61,7 @@ def matrix_to_pairwise_csv(matrix, document_ids, output_file):
 
     with open(output_file, "w") as sim_pair_file:
 
-        writer = csv.writer(sim_pair_file)
+        writer = csv.writer(sim_pair_file, lineterminator="\n")
 #        writer.writerows(headers)        
 
         for slider_index in range(0, len(matrix), batchsize):

@@ -1,5 +1,5 @@
 from textstat import textstat
-#from readcalc import readcalc
+from readcalc import readcalc
 
 __author__ = "Sreejith Sreekumar"
 __email__ = "sreekumar.s@husky.neu.edu"

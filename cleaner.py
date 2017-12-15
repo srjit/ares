@@ -75,9 +75,24 @@ def get_readable_text(raw_html):
     - `x`:
     """
     raw_html = bytes(raw_html, 'utf-16').decode("utf-16", 'ignore')
-    cleantext = BeautifulSoup(raw_html).text
-    cleantext = " ".join(cleantext.split())
-    cleantext = ''.join(x for x in cleantext if x in string.printable)
+    _cleantext = BeautifulSoup(raw_html).text
+
+#    paragraphs = _cleantext.split("\n+")
+
+    paragraphs = [s.strip() for s in _cleantext.splitlines()]
+
+
+    cleaned_paragraphs = []
+    
+    for para in paragraphs:
+        cleantext = " ".join(para.split())
+        cleantext = ''.join(x for x in cleantext if x in string.printable)
+        cleaned_paragraphs.append(cleantext)
+
+    cleantext = "\n".join(cleaned_paragraphs)
+    
+    strs = re.sub('\\n+', '. ', cleantext)
+    cleantext = re.sub(r'\.+', ".", strs)
 
     return cleantext
     

@@ -38,6 +38,8 @@ print("Beginning to write data to postgres")
 connector.updated_input_dataframe_to_postgres(data)
 
 ## Quality check - writing to csv
+folder = cfg.get('checkpoint','dir')
+utils.create_date_folder(folder)
 checkpoint1_name = cfg.get('checkpoint','ch1')
 data.to_csv(checkpoint1_name, sep="\t")
 
