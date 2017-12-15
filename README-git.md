@@ -1,5 +1,5 @@
 
-#### Installing and configuring Git on Wwindows
+#### Installing and configuring Git on Windows
 
  - Download the latest Git for Windows installer.
  - open command prompt and type in
