@@ -5,8 +5,8 @@ import subprocess
 import threading
 import os
 
-from readcalc import readcalc
-from textstat import textstat
+#from readcalc import readcalc
+#from textstat import textstat
 from readability import Readability
 
 __author__ = "Sreejith Sreekumar"
@@ -25,7 +25,7 @@ foo = []
 def replace_null_with_empty_string(html):
     '''
       Replace null cells in "value" with an empty string
-      and creates a corresponding new string to put in 
+      and creates a corresponding new string to put in
       "cleaned_value" column
     '''
 
@@ -70,7 +70,7 @@ def get_text_from_html(x):
 
 def get_readable_text(raw_html):
     """
-    
+
     Arguments:
     - `x`:
     """
@@ -83,37 +83,37 @@ def get_readable_text(raw_html):
 
 
     cleaned_paragraphs = []
-    
+
     for para in paragraphs:
         cleantext = " ".join(para.split())
         cleantext = ''.join(x for x in cleantext if x in string.printable)
         cleaned_paragraphs.append(cleantext)
 
     cleantext = "\n".join(cleaned_paragraphs)
-    
+
     strs = re.sub('\\n+', '. ', cleantext)
     cleantext = re.sub(r'\.+', ".", strs)
 
     return cleantext
-    
-    
+
+
 
 
 
 def clean_html_and_extract_text(raw_html):
-    
+
     '''
        Clean an html string that comes from "cleaned_value"  column
     '''
 #    global foo
-    
+
     ## use regular expressions to remove roman numberals inside brackets
     ## eg. (iv), (ix) etc.
     raw_html = re.sub('\([v|i|x]+\)', '', raw_html)
     raw_html = re.sub('\s\d+\s', '', raw_html)
 
 
-    ## clear off the non ascii characters, remove the html tags 
+    ## clear off the non ascii characters, remove the html tags
     ## and get just the text from the document
     raw_html = bytes(raw_html, 'utf-16').decode("utf-16", 'ignore')
     cleantext = BeautifulSoup(raw_html).text
@@ -130,7 +130,7 @@ def clean_html_and_extract_text(raw_html):
     table = cleantext.maketrans("","", string.punctuation)
     cleantext = cleantext.translate(table)
 
-    ## clear off all arabic numerals / digits in the text which are attached 
+    ## clear off all arabic numerals / digits in the text which are attached
     ## together with text
     numbers = re.findall('\d+', cleantext)
     for number in numbers:
@@ -138,21 +138,21 @@ def clean_html_and_extract_text(raw_html):
 
     ## clear off numbers and normalize spaces between words
     ## and lowercase it
-    cleantext = " ".join([text for text in cleantext.split(" ") 
+    cleantext = " ".join([text for text in cleantext.split(" ")
                               if text.strip() is not "" and text.isdigit() is False]).lower()
 
     ## remove any non-printable (non-ascii) characters in the text
     printable = set(string.printable)
     cleantext = list(filter(lambda x: x in printable, cleantext))
     cleantext = "".join(cleantext)
-    
+
     ## remove roman numberals from string which
     ## are not in brackets
     toremove = [' ii ',' iii ', ' iv ', ' v ', ' vi ', ' vii ', ' viii ', ' ix ', ' x ']
     text_array = cleantext.split("\s+")
     cleantext = [word.strip() for word in text_array if word not in toremove]
     cleantext = " ".join(cleantext)
-    
+
     return cleantext.strip()
 
 
@@ -171,4 +171,3 @@ def extract_fog_score(cleantext):
     # import ipdb
     # ipdb.set_trace()
     return fog_index
-

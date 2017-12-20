@@ -16,7 +16,7 @@ def list_to_csv(lists, document_ids, output_file):
 
     batchsize = 10
     headers = [["index1","index2","similarity"]]
-    
+
     if os.path.isfile(output_file):
         os.remove(output_file)
 
@@ -28,9 +28,10 @@ def list_to_csv(lists, document_ids, output_file):
             end_index = slider_index + batchsize
 
             similarities_for_range = lists[begin_index: end_index]
-            
+
             writer.writerows(similarities_for_range)
-               
+
+
 
 
 def create_date_folder(foldername):
@@ -39,30 +40,30 @@ def create_date_folder(foldername):
     if(os.path.exists(foldername)):
         shutil.rmtree(foldername)
     os.makedirs(foldername)
-    
+
     print("New directories created")
-    
-        
-        
-    
+
+
+
+
+
 
 def matrix_to_pairwise_csv(matrix, document_ids, output_file):
     """
-    
+
     Arguments:
     - `matrix`:
     """
 
     batchsize = 100
     headers = [["index1","index2","similarity"]]
-    
+
     if os.path.isfile(output_file):
         os.remove(output_file)
 
     with open(output_file, "w") as sim_pair_file:
 
         writer = csv.writer(sim_pair_file, lineterminator="\n")
-#        writer.writerows(headers)        
 
         for slider_index in range(0, len(matrix), batchsize):
 
@@ -92,4 +93,3 @@ def output_to_csv(_type, output, document_ids, output_file):
         return matrix_to_pairwise_csv(output, document_ids, output_file)
     elif _type == "word2vec":
         return list_to_csv(output, document_ids, output_file)
-    
