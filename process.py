@@ -25,7 +25,7 @@ data['readable_text'] = data['value'].apply(lambda x: cleaner.get_readable_text(
 data['processed_value'] = data['value'].apply(lambda x: cleaner.clean_html_and_extract_text(x))
 
 ## Adding a column to count the number of words
-data['word_count'] = data['processed_value'].apply(lambda x: utils.count_words(x))
+#data['word_count'] = data['readable_text'].apply(lambda x: utils.count_words(x))
 
 
 print("Collecting text statistics...")
