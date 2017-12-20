@@ -52,6 +52,8 @@ def get_readability_scores_from_textstat(data, field="readable_text"):
                                 textstat.textstat.lexicon_count(str(x)) if x is not '' else 0.0)
     data['sentence_count'] = data['readable_text'].apply(lambda x:
                                 textstat.textstat.sentence_count(str(x)) if x is not '' else 0.0)						
+    data['difficult_words'] = data['readable_text'].apply(lambda x:
+                                textstat.textstat.difficult_words(str(x)) if x is not '' else 0.0)						
 	
 
 def get_readability_scores(data, type):
