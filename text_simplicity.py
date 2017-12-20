@@ -33,21 +33,26 @@ def get_readability_scores_from_textstat(data, field="readable_text"):
     """
     """
     data['gunning_fog'] = data['readable_text'].apply(lambda x: 
-                                  textstat.textstat.gunning_fog(str(x)) if x is not '' else 0.0)
-
+                                textstat.textstat.gunning_fog(str(x)) if x is not '' else 0.0)
     data['reading_ease'] = data['readable_text'].apply(lambda x: 
-                                  textstat.textstat.flesch_reading_ease(str(x)) if x is not '' else 0.0)
+                                textstat.textstat.flesch_reading_ease(str(x)) if x is not '' else 0.0)
     data['smog_index'] = data['readable_text'].apply(lambda x: 
-                                  textstat.textstat.smog_index(str(x)) if x is not '' else 0.0)
+                                textstat.textstat.smog_index(str(x)) if x is not '' else 0.0)
     data['automated_readability_index'] = data['readable_text'].apply(lambda x: 
-                                  textstat.textstat.automated_readability_index(str(x)) if x is not '' else 0.0)
+                                textstat.textstat.automated_readability_index(str(x)) if x is not '' else 0.0)
     data['coleman_liau_index'] = data['readable_text'].apply(lambda x: 
-                                  textstat.textstat.coleman_liau_index(str(x)) if x is not '' else 0.0)
+                                textstat.textstat.coleman_liau_index(str(x)) if x is not '' else 0.0)
     data['linsear_write_formula'] = data['readable_text'].apply(lambda x: 
-                                  textstat.textstat.linsear_write_formula(str(x)) if x is not '' else 0.0)
+                                textstat.textstat.linsear_write_formula(str(x)) if x is not '' else 0.0)
     data['dale_chall_readability_score'] = data['readable_text'].apply(lambda x: 
-                                  textstat.textstat.dale_chall_readability_score(str(x)) if x is not '' else 0.0)
-
+                                textstat.textstat.dale_chall_readability_score(str(x)) if x is not '' else 0.0)
+    data['syllable_count'] = data['readable_text'].apply(lambda x:
+                                textstat.textstat.syllable_count(str(x)) if x is not '' else 0.0)
+    data['lexicon_count'] = data['readable_text'].apply(lambda x:
+                                textstat.textstat.lexicon_count(str(x)) if x is not '' else 0.0)
+    data['sentence_count'] = data['readable_text'].apply(lambda x:
+                                textstat.textstat.sentence_count(str(x)) if x is not '' else 0.0)
+    
 
 
 

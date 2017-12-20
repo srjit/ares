@@ -171,4 +171,3 @@ def extract_fog_score(cleantext):
     # import ipdb
     # ipdb.set_trace()
     return fog_index
-

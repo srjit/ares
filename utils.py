@@ -93,3 +93,5 @@ def output_to_csv(_type, output, document_ids, output_file):
     elif _type == "word2vec":
         return list_to_csv(output, document_ids, output_file)
     
+
+
